@@ -1,0 +1,24 @@
+@startuml arch
+actor Usuario
+
+package "Camada de Views" {
+  component [Telas (JFrames)] as VL
+}
+
+package "Camada de Controle" {
+  component [Controllers] as C
+}
+
+package "Camada de Model" {
+  entity Entities as E
+  component [DAOs] as D
+}
+
+database "Banco SQLite" as DB
+
+Usuario -> VL
+VL -> C
+C -> D
+D -> E
+D -down-> DB
+@enduml

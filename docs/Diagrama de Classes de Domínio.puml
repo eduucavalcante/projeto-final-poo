@@ -1,0 +1,115 @@
+@startuml domain
+enum Role <<enum>> {
+CLIENTE
+ADMIN
+}
+
+class Usuario {
+- int id
+- String nome
+- String email
+- String senha
+- Role role
+
++ int getId()
++ String getNome()
++ void setNome(String nome)
++ String getEmail()
++ void setEmail(String email)
++ String getSenha()
++ void setSenha(String senha)
++ Role getRole()
++ void setRole(Role role)
+}
+
+Usuario --> Role : usa
+
+class Filme {
+- int id
+- String titulo
+- String sinopse
+- String genero
+- int duracao
+- boolean emCartaz
+
++ int getId()
++ String getTitulo()
++ void setTitulo(String titulo)
++ String getSinopse()
++ void setSinopse(String sinopse)
++ String getGenero()
++ void setGenero(String genero)
++ int getDuracao()
++ void setDuracao(int minutos)
++ boolean isEmCartaz()
++ void setEmCartaz(boolean emCartaz)
+}
+
+class Sala {
+- int id
+- int numero
+- int totalFileiras
+- int totalAssentosPorFileira
+
++ int getId()
++ int getNumero()
++ void setNumero(int numero)
++ int getTotalFileiras()
++ void setTotalFileiras(int total)
++ int getTotalAssentosPorFileira()
++ void setTotalAssentosPorFileira()
+}
+
+class Sessao {
+- int id
+- int filmeId
+- int salaId
+- LocalDateTime dataHora
+- double precoBase
+
++ int getId()
++ int getFilmeId()
++ void setFilmeId(int id)
++ int getSalaId()
++ void setSalaId(int id)
++ LocalDateTime getDataHora()
++ void setDataHora(LocalDateTime dataHora)
++ double getPrecoBase()
++ void setPrecoBase(double precoBase)
+}
+
+Filme <- Sessao : usa
+Sala <- Sessao : usa
+
+abstract class Ingresso {
+- int id
+- int usuarioId
+- int sessaoId
+- int numeroSala
+- String filme
+- LocalDateTime dataHora
+- double preco
+
++ int getId()
++ int getUsuarioId()
++ int getSessaoId()
++ int getNumeroSala()
++ String getFilme()
++ LocalDateTime getDataHora()
++ double getPreco()
+# abstract double calcularPreco(double precoBase)
+}
+
+class IngressoInteira {
+# double calcularPreco(double precoBase)
+}
+
+class IngressoMeia {
+# double calcularPreco(double precoBase)
+}
+
+Sessao <-down- Ingresso : usa
+Usuario <- Ingresso : usa
+Ingresso <|-- IngressoInteira
+Ingresso <|-- IngressoMeia
+@enduml
