@@ -1,4 +1,5 @@
 *.class
+*.form
 
 *.jar
 *.war
